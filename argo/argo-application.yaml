@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dagger-hola-mundo
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Ignaciojeria/dagger-github-registry-example'
+    targetRevision: HEAD
+    path: 'argo'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'default'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

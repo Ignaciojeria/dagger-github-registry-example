@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: dagger-hola-mundo-
+spec:
+  entrypoint: run-dagger
+  templates:
+    - name: run-dagger
+      container:
+        image: golang:1.20
+        command: ["go", "run", "dagger/main.go"]
+        workingDir: /src
+        volumeMounts:
+          - name: source
+            mountPath: /src
+  volumes:
+    - name: source
+      gitRepo:
+        repository: "https://github.com/Ignaciojeria/dagger-github-registry-example"
+        revision: "main"
